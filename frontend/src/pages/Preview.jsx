@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
-// import { apiService } from '../services/api' // API 비활성화 - 모킹 데이터 사용
 import { format } from 'date-fns'
 import { ko } from 'date-fns/locale'
+import { getPreviewData } from '../api/matches'
 import './Preview.css'
 
 const Preview = () => {
@@ -21,19 +21,14 @@ const Preview = () => {
   const loadPreviewData = async () => {
     try {
       setLoading(true)
-      // 모킹 데이터 사용 (API 비활성화)
-      const fixtureData = {
-        fixture: { id: fixtureId, date: new Date().toISOString() },
-        teams: {
-          home: { id: 42, name: 'Arsenal', logo: 'https://media.api-sports.io/football/teams/42.png' },
-          away: { id: 50, name: 'Manchester City', logo: 'https://media.api-sports.io/football/teams/50.png' }
-        }
-      }
+      setError(null)
+      // 서비스 레이어를 통해 데이터 조회
+      const data = await getPreviewData(fixtureId)
       
-      setFixture(fixtureData)
-      setH2h([]) // 모킹 데이터 없음
-      setInjuries([]) // 모킹 데이터 없음
-      setKeyPlayers({ home: [], away: [] }) // 모킹 데이터 없음
+      setFixture(data.fixture)
+      setH2h(data.h2h || [])
+      setInjuries(data.injuries || [])
+      setKeyPlayers(data.keyPlayers || { home: [], away: [] })
     } catch (err) {
       setError('데이터를 불러오는 중 오류가 발생했습니다.')
       console.error(err)

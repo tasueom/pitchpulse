@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
-// import { apiService } from '../services/api' // API 비활성화 - 모킹 데이터 사용
 import { format } from 'date-fns'
+import { getTeamDetail } from '../api/teams'
 import './TeamDetail.css'
 
 const TeamDetail = () => {
@@ -20,24 +20,14 @@ const TeamDetail = () => {
   const loadTeamData = async () => {
     try {
       setLoading(true)
-      // 모킹 데이터 사용 (API 비활성화)
-      const teamData = {
-        team: {
-          id: parseInt(teamId),
-          name: 'Arsenal',
-          logo: 'https://media.api-sports.io/football/teams/42.png',
-          founded: 1886
-        },
-        venue: {
-          name: 'Emirates Stadium',
-          city: 'London'
-        }
-      }
+      setError(null)
+      // 서비스 레이어를 통해 데이터 조회
+      const data = await getTeamDetail(teamId)
       
-      setTeam(teamData)
-      setStatistics(null) // 모킹 데이터 없음
-      setRecentFixtures([]) // 모킹 데이터 없음
-      setInjuries([]) // 모킹 데이터 없음
+      setTeam(data.team)
+      setStatistics(data.statistics || null)
+      setRecentFixtures(data.recentFixtures || [])
+      setInjuries(data.injuries || [])
     } catch (err) {
       setError('데이터를 불러오는 중 오류가 발생했습니다.')
       console.error(err)

@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-// import { apiService } from '../services/api' // API 비활성화 - 모킹 데이터 사용
 import { format } from 'date-fns'
 import { ko } from 'date-fns/locale'
-import { mockStandings, mockRecentFixtures, mockTeamForms } from '../data/mockData'
+import { getLeagueHome } from '../api/leagues'
 import { MAJOR_LEAGUES } from '../data/leagues'
-import { getMockStandings, getMockFixtures, getMockTeamForms } from '../data/mockDataByLeague'
 import './LeagueHome.css'
 
 const LeagueHome = () => {
@@ -28,25 +26,17 @@ const LeagueHome = () => {
       setLoading(true)
       setError(null)
       
-      console.log('모킹 데이터 로딩 중...', `리그 ID: ${selectedLeague}`)
+      // 서비스 레이어를 통해 데이터 조회
+      const data = await getLeagueHome(selectedLeague)
       
-      // 선택된 리그에 맞는 모킹 데이터 사용
-      const standingsData = getMockStandings(selectedLeague)
-      const fixturesData = getMockFixtures(selectedLeague)
-      const teamFormsData = getMockTeamForms(selectedLeague)
-      
-      // 현재 시즌 정보 저장 (2025)
-      setCurrentSeason(2025)
-
-      setStandings(standingsData)
-      setRecentFixtures(fixturesData)
+      setStandings(data.standings || [])
+      setRecentFixtures(data.recentFixtures || [])
+      setTeamForms(data.teamForms || {})
+      setCurrentSeason(data.currentSeason || null)
 
       // 고유한 라운드 추출
-      const uniqueRounds = [...new Set(fixturesData.map(f => f.league.round).filter(Boolean))]
+      const uniqueRounds = [...new Set((data.recentFixtures || []).map(f => f.league.round).filter(Boolean))]
       setRounds(uniqueRounds.sort())
-
-      // 리그별 모킹 폼 데이터 사용
-      setTeamForms(teamFormsData)
       
     } catch (err) {
       const errorMessage = err.message || '데이터를 불러오는 중 오류가 발생했습니다.'

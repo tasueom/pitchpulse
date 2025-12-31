@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
-// import { apiService } from '../services/api' // API 비활성화 - 모킹 데이터 사용
-import { mockTeamRankings, mockPlayerRankings } from '../data/mockData'
+import { getTeamRankings, getPlayerRankings } from '../api/teams'
 import { MAJOR_LEAGUES } from '../data/leagues'
 import './Rankings.css'
 
@@ -29,16 +28,21 @@ const Rankings = () => {
   const loadRankingsData = async () => {
     try {
       setLoading(true)
-      // 모킹 데이터 사용 (API 비활성화)
-      setStandings([]) // 순위표는 사용하지 않음
+      setError(null)
       
-      // 모킹 데이터를 바로 정렬된 형태로 설정 (초기 정렬: passes 기준)
-      const sortedTeamStats = [...mockTeamRankings].sort((a, b) => {
-        return (b.metrics.passes || 0) - (a.metrics.passes || 0)
+      // 서비스 레이어를 통해 데이터 조회
+      const [teamData, playerData] = await Promise.all([
+        getTeamRankings(selectedLeague),
+        getPlayerRankings(selectedLeague)
+      ])
+      
+      // 초기 정렬: passes 기준
+      const sortedTeamStats = [...(teamData || [])].sort((a, b) => {
+        return (b.metrics?.passes || 0) - (a.metrics?.passes || 0)
       })
       
-      const sortedPlayerStats = [...mockPlayerRankings].sort((a, b) => {
-        return (b.stats.passes || 0) - (a.stats.passes || 0)
+      const sortedPlayerStats = [...(playerData || [])].sort((a, b) => {
+        return (b.stats?.passes || 0) - (a.stats?.passes || 0)
       })
       
       setTeamStats(sortedTeamStats)
@@ -119,8 +123,8 @@ const Rankings = () => {
   }
 
   const calculatePlayerRankings = () => {
-    // 모킹 데이터를 선택된 지표로 정렬
-    const sorted = [...mockPlayerRankings].sort((a, b) => {
+    // 선택된 지표로 정렬
+    const sorted = [...playerStats].sort((a, b) => {
       const metricMap = {
         passes: 'passes',
         passAccuracy: 'passAccuracy',

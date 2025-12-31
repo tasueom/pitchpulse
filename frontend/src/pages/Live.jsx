@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-// import { apiService } from '../services/api' // API 비활성화 - 모킹 데이터 사용
-import { mockLiveFixtures, mockLiveEvents, mockLiveStatistics } from '../data/mockData'
+import { getLiveMatches, getMatchDetails } from '../api/matches'
 import './Live.css'
 
 const Live = () => {
@@ -31,11 +30,12 @@ const Live = () => {
 
   const loadLiveFixtures = async () => {
     try {
-      // 모킹 데이터 사용 (API 비활성화)
-      const data = mockLiveFixtures
-      setLiveFixtures(data)
-      if (data.length === 0 && !loading) {
-        setError('현재 진행 중인 경기가 없습니다. (모킹 모드)')
+      setLoading(true)
+      // 서비스 레이어를 통해 데이터 조회
+      const data = await getLiveMatches()
+      setLiveFixtures(data || [])
+      if ((data || []).length === 0) {
+        setError('현재 진행 중인 경기가 없습니다.')
       } else {
         setError(null)
       }
@@ -49,11 +49,11 @@ const Live = () => {
 
   const loadFixtureDetails = async (fixtureId) => {
     try {
-      // 모킹 데이터 사용 (API 비활성화)
-      const mockFixture = mockLiveFixtures.find(f => f.fixture.id === fixtureId) || mockLiveFixtures[0]
-      setFixtureDetails(mockFixture)
-      setEvents(mockLiveEvents)
-      setStatistics(mockLiveStatistics)
+      // 서비스 레이어를 통해 데이터 조회
+      const data = await getMatchDetails(fixtureId)
+      setFixtureDetails(data.fixture)
+      setEvents(data.events || [])
+      setStatistics(data.statistics || [])
     } catch (err) {
       console.error('경기 상세 정보 로딩 실패:', err)
     }
@@ -85,7 +85,15 @@ const Live = () => {
     }
   }
 
-  if (loading) return <div className="loading">로딩 중...</div>
+  if (loading && liveFixtures.length === 0) {
+    return (
+      <div className="live-page">
+        <div className="container">
+          <div className="loading">로딩 중...</div>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="live-page">
