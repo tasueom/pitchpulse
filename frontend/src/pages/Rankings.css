@@ -1,0 +1,220 @@
+.rankings-page {
+  padding: 2rem 0;
+}
+
+.league-tabs {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.league-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.3s;
+  min-width: 80px;
+}
+
+.league-tab:hover {
+  border-color: #000000;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.league-tab.active {
+  border-color: #000000;
+  background: #000000;
+  color: white;
+}
+
+.league-logo {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+.league-tab.active .league-logo {
+  filter: brightness(0) invert(1);
+}
+
+.league-name {
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.tabs {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.tab {
+  padding: 0.75rem 1.5rem;
+  background: none;
+  border: none;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #666;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  transition: all 0.3s;
+}
+
+.tab:hover {
+  color: #000000;
+}
+
+.tab.active {
+  color: #000000;
+  border-bottom-color: #000000;
+}
+
+.metric-selector {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.metric-selector label {
+  font-weight: 600;
+  color: #333;
+}
+
+.metric-selector select {
+  padding: 0.5rem 1rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+  background: white;
+  cursor: pointer;
+}
+
+.rankings-section {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.rankings-section h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #000000;
+}
+
+.rankings-table {
+  overflow-x: auto;
+}
+
+.rankings-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.rankings-table th {
+  background-color: #f8f9fa;
+  padding: 0.75rem;
+  text-align: left;
+  font-weight: 600;
+  color: #555;
+  border-bottom: 2px solid #000000;
+}
+
+.rankings-table td {
+  padding: 0.75rem;
+  border-bottom: 1px solid #eee;
+}
+
+.rankings-table tr:hover {
+  background-color: #f8f9fa;
+}
+
+.team-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.team-logo-small {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.player-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.player-photo {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.player-photo-placeholder {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #000000;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 0.875rem;
+}
+
+.player-name {
+  font-weight: 600;
+  color: #333;
+}
+
+.metric-value {
+  font-weight: 600;
+  color: #000000;
+}
+
+@media (max-width: 768px) {
+  .tabs {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .tab {
+    width: 100%;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  .tab.active {
+    border-bottom-color: #000000;
+  }
+
+  .metric-selector {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+

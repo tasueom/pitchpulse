@@ -1,0 +1,291 @@
+.league-home {
+  padding: 2rem 0;
+}
+
+.league-tabs {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.league-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.3s;
+  min-width: 80px;
+}
+
+.league-tab:hover {
+  border-color: #000000;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.league-tab.active {
+  border-color: #000000;
+  background: #000000;
+  color: white;
+}
+
+.league-logo {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+.league-tab.active .league-logo {
+  filter: brightness(0) invert(1);
+}
+
+.league-name {
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.page-title {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: #333;
+  text-align: center;
+}
+
+.standings-section,
+.recent-fixtures-section {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.standings-section h2,
+.recent-fixtures-section h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #000000;
+}
+
+.standings-table {
+  overflow-x: auto;
+}
+
+.standings-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.standings-table th {
+  background-color: #f8f9fa;
+  padding: 0.75rem;
+  text-align: left;
+  font-weight: 600;
+  color: #555;
+  border-bottom: 2px solid #000000;
+}
+
+.standings-table td {
+  padding: 0.75rem;
+  border-bottom: 1px solid #eee;
+}
+
+.standings-table tr:hover {
+  background-color: #f8f9fa;
+}
+
+.team-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #333;
+  font-weight: 500;
+}
+
+.team-link:hover {
+  color: #000000;
+}
+
+.team-logo-small {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.form-indicators {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.form-badge {
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  color: white;
+}
+
+.form-W {
+  background-color: #4caf50;
+}
+
+.form-D {
+  background-color: #ff9800;
+}
+
+.form-L {
+  background-color: #f44336;
+}
+
+.no-form {
+  color: #999;
+}
+
+.points {
+  font-weight: bold;
+  color: #000000;
+}
+
+.positive {
+  color: #4caf50;
+  font-weight: 500;
+}
+
+.negative {
+  color: #f44336;
+  font-weight: 500;
+}
+
+.filters {
+  margin-bottom: 1rem;
+}
+
+.filters select {
+  padding: 0.5rem 1rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.fixtures-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.fixture-card {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 1rem;
+  transition: box-shadow 0.3s;
+}
+
+.fixture-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.fixture-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+  font-size: 0.875rem;
+  color: #666;
+}
+
+.round {
+  font-weight: 600;
+  color: #000000;
+}
+
+.fixture-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.fixture-content .team {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1;
+  font-weight: 500;
+}
+
+.fixture-content .team img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+
+.score {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  min-width: 100px;
+  justify-content: center;
+}
+
+.score-number {
+  color: #333;
+}
+
+.score-separator {
+  color: #999;
+}
+
+.vs {
+  color: #999;
+  font-size: 1rem;
+}
+
+.fixture-status {
+  margin-top: 0.75rem;
+  text-align: center;
+}
+
+.status {
+  padding: 0.25rem 0.75rem;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  background-color: #f5f5f5;
+  color: #666;
+}
+
+.status.FT {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.status.LIVE {
+  background-color: #ffebee;
+  color: #c62828;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
